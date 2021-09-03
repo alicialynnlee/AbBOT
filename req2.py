@@ -5,7 +5,7 @@ import json
 from cities import cities
 from data import data
 from words import words
-
+from essential_generators import DocumentGenerator
 
 url = 'https://prolifewhistleblower.com/anonymous-form/'
 
@@ -14,6 +14,8 @@ header = {
     'referer':'https://www.google.com/'
 }
 
+gen = DocumentGenerator()
+
 i=0
 while (i < 1000):
     # populate payload
@@ -21,11 +23,11 @@ while (i < 1000):
     for key in data.keys():
         info = 'Placeholder'
         if key == 'txtarea':
-            info = ' '.join(random.sample(words, 40))
+            info = gen.paragraph()
         if key == 'txt1':
-            info = ' '.join(random.sample(words, 4))
+            info = gen.sentence()
         if key == 'txt6':
-            info = 'Dr. ' + random.choice(list(cities.items()))[0]
+            info = 'Dr. ' + gen.name()
         if key == 'txt2':
             info = random.choice(list(cities.items()))[0]
         if key == 'txt3':
@@ -35,6 +37,8 @@ while (i < 1000):
         if key == 'txt5':
             info = random.choice(list(cities.items()))[1]
         payload[key] = info
+
+    print(payload)
 
     response = requests.post(url, data=json.dumps(payload), headers=header)
 
