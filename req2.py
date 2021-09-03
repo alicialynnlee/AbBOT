@@ -27,7 +27,7 @@ while (i < 1000):
         if key == 'txt1':
             info = gen.sentence()
         if key == 'txt6':
-            info = 'Dr. ' + gen.name()
+            info = gen.name()
         if key == 'txt2':
             info = random.choice(list(cities.items()))[0]
         if key == 'txt3':
